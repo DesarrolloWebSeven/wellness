@@ -1,8 +1,6 @@
-const mongoose = require('mongoose')
-const fs = require('fs')
 const path = require('path')
-const csv = require('fast-csv')
-const csv2 = require('csvtojson')
+//const csv = require('fast-csv')
+const csv = require('csvtojson')
 const Factura = require('../models/Factura')
 
 //Agregar nuevos datos
@@ -19,17 +17,10 @@ const addData = async (req,res) => {
     }
 }
 
-//Parsear el file
+//Parsear y guardar el archivo en Base de batos
 const parseFile = (file) => {
-    // let arrayData = []
-    // fs.createReadStream(path.join(__dirname, '../data/', file.name))
-    //     .pipe(csv.parse({headers: true, ignoreEmpty: true}))
-    //     .on('error', error => console.error(error))
-    //     .on('data', row => console.log(row))
-    //     .on('end', rowCount => console.log(`Parsed ${rowCount} rows`))
 
-
-    csv2({ 
+    csv({ 
         noheader: false, 
         headers: ['fecha', 'hora', 'consumo', 'precio', 'costeHora'],
         checkType: true
