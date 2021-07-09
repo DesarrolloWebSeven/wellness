@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FormImport msg="Agrege el archivo CSV que necesite"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import FormImport from '@/components/FormImport.vue'
 
 export default {
-  name: 'Home',
+  name: 'Import',
   components: {
-    HelloWorld
+    FormImport
   }
 }
 </script>
