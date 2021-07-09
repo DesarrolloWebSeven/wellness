@@ -1,10 +1,9 @@
 const path = require('path')
-//const csv = require('fast-csv')
 const csv = require('csvtojson')
 const Factura = require('../models/Factura')
 
 //Agregar nuevos datos
-const addData = async (req,res) => {
+const addRegisters = async (req,res) => {
     //Almacenamos el archivo en el servidor
     var file = req.files.file
     try {
@@ -19,7 +18,6 @@ const addData = async (req,res) => {
 
 //Parsear y guardar el archivo en Base de batos
 const parseFile = (file) => {
-
     csv({ 
         noheader: false, 
         headers: ['fecha', 'hora', 'consumo', 'precio', 'costeHora'],
@@ -28,13 +26,13 @@ const parseFile = (file) => {
         .fromFile(path.join(__dirname, '../data/', file.name))
         .then(csvData => {
             console.log(csvData)
-            csvData.forEach((registro=>{
-                let newRegistro = new Factura(registro)
-                newRegistro.save()
+            csvData.forEach((register=>{
+                let newRegister = new Factura(register)
+                newRegister.save()
             }))
         })
 }
 
 module.exports={
-    addData
+    addRegisters
 }
