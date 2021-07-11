@@ -1,12 +1,19 @@
 const Factura = require('../models/Factura')
 
 const addRegister = (req, res) => {
-
+    console.log(req.body)
+    let newRegister = new Factura(req.body)
+    newRegister.save()
+    .then(() => res.json({message: 'Agregado con exito!'}))
+    .catch((err) => res.json({message: `Algo salio mal: ${err}`}))
 }
 
 const deleteRegister = (req, res) => {
-    
-}
+    console.log(req.params.id)
+    Factura.findByIdAndDelete(req.params.id)
+        .then(() => res.json({ message: 'Borrado con exito' }))
+        .catch(err => res.json({ error: err }))
+}   
 
 const updateRegister = (req, res) => {
     
