@@ -16,7 +16,18 @@ const deleteRegister = (req, res) => {
 }   
 
 const updateRegister = (req, res) => {
-    
+    console.log(req.body)
+    let coste = (req.body.consumo * req.body.precio)/1000
+    Factura.findByIdAndUpdate({_id : req.params.id}, {
+        fecha: req.body.fecha,
+        hora: req.body.hora,
+        consumo: req.body.consumo,
+        precio: req.body.precio,
+        costeHora: coste
+    })
+        .then(() => res.json({ message: 'Actualizado ok' }))
+        .catch(err => res.json({ error: err }))
+
 }
 
 const listRegisters = (req, res) => {
