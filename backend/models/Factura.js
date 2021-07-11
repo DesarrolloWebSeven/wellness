@@ -11,4 +11,4 @@ const miFactura = new Schema({
     timestamps:true
 })
 
-module.exports= mongoose.model('factura', miFactura)
+module.exports = mongoose.model('factura', miFactura)

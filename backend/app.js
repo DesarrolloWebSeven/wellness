@@ -7,6 +7,7 @@ const app = express()
 
 // Rutas
 const rtAdmin = require('./routers/rtAdmin')
+const rtPublic = require('./routers/rtPublic')
 // const rtListaMercado = require('./routers/rtListaMercado')
 
 
@@ -19,13 +20,13 @@ connection.once('open', ()=> console.log("Conexión a MongoDB Ok!!"))
 // app.use(multer(upload).array('data'))
 
 //middleware cors
-// app.use((req, res, next) => {
-    //     res.header('Access-Control-Allow-Origin', '*')
-    //     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method')
-    //     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-    //     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE')    
-    //     next()
-    // })
+app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method')
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+        res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE')    
+        next()
+    })
     
 //middleware
 app.use(fileUpload())
@@ -33,6 +34,7 @@ app.use(fileUpload())
 app.use(express.urlencoded({extended:true}))//para cuando llegan datos desde un formulario
 app.use(express.json())
 app.use('/', rtAdmin)
+app.use('/public', rtPublic)
 
 //Configuracion del server
 let port = process.env.PORT_SERVER || 3000

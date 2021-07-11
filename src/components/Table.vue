@@ -1,101 +1,155 @@
 <template>
-    <div class="row nuevo">
-    <div class="col-6"><input v-model="concepto" placeholder="concepto"/></div>
-    <div class="col-2"><input type="number" size="3" v-model="cantidad" placeholder="0"/></div>
-    <div class="col-2"><input type="number" size="4" v-model="precio" placeholder="0"/></div>
-    <div class="col-2"><button @click="agregar" class="btn btn-success">Agregar</button></div>
-    </div>
-    <hr>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>concepto</th>
-                <th>precio</th>
-                <th>cantidad</th>
-                <th>subtotal</th>      
-                <th>Eliminar</th>      
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(dato,i) in datos" :key="i">
-                <td><input size="20" type="text" v-model="dato.concepto"></td> 
-                <td><input size="5" type="number" step="any" v-model="dato.precio"></td>
-                <td><input size="4" type="number" v-model="dato.cantidad"></td>
-                <td>{{ dato.precio*dato.cantidad}}</td>
-                <td>
-                    <button class="btn btn-danger" @click="eliminar(i)">Eliminar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="total">
-        <div colspan="3">TOTAL: <span>{{total}}</span></div>
+    <div>
+        <div class="row nuevo">
+            <div>
+                <div class="col-3 btn">Fecha</div>
+                <div class="col-3 btn">Hora</div>
+                <div class="col-3 btn">Consumo</div>
+                <div class="col-3 btn">Precio</div>
+            </div>
+            <div class="col-3 btn"><input type="date" v-model="newRegister.fecha" placeholder="Fecha"/></div>
+            <div class="col-3 btn">
+                <select v-model="newRegister.hora" class="small" placeholder="0-23 hr">
+                    <option v-for="(hora, i) in horas" :key="i" :value="hora" class="small">
+                        {{ hora }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-3 btn"><input type="number" class="small" maxlength="4" v-model="newRegister.consumo" placeholder="0-9999"/></div>        
+            <div class="col-3 btn"><input type="number" class="medium" v-model="newRegister.precio" step="0.091866654" placeholder="0.457874"/></div><br><br>      
+            <div class="d-grid gap-2"><button @click="addOne" class="btn btn-success btn-lg">Agregar registro</button></div>
+        </div>
+        <br>
+        <div class="total">
+            <div class="col-12">Registros: <span>{{registers.length}}</span></div> 
+        </div>
+        <hr>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Consumo</th>
+                        <th>Precio</th>      
+                        <th>Coste/Hora</th>
+                        <th></th>     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(dato,i) in registers" :key="i" @change="updateOne(i)">
+                        <td class=""><input class="btn" size="10" type="text" v-model="dato.fecha"></td> 
+                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.hora"></td>
+                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.consumo"></td>
+                        <td class="medium"><input class="btn medium" size="10" step="0.091866654" type="number" v-model="dato.precio"></td>
+                        <td class="large"><input size="10" type="number" v-model="dato.costeHora"></td>
+                        <td class="small">
+                            <button class="btn btn-danger btn-sm" @click="deleteOne(i)">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
-import { ref, reactive, computed, watch } from 'vue'
+import { reactive, computed, watch, inject } from 'vue'
+import axios from 'axios'
 export default {
     name:'Table',
     props:{},
     setup(){
+        const registers = inject('registers')
+        const horas = reactive([])
+        const newRegister = reactive({})
 
-        const datos=reactive([
-            {concepto:'Pantalones vaqueros chico',cantidad:2,precio:30.99},
-            {concepto:'Camiseta básica chic',cantidad:4,precio:6.99},
-            {concepto:'Pijama unisex',cantidad:1,precio:12.50},
-            {concepto:'Deportivas Nike',cantidad:1,precio:80.00},
-        ])
-        let concepto=ref("")
-        let cantidad=ref("0")
-        let precio=ref("0.00")     
-        
-        //usamos computed para advertir a vue que, si cambian nuestras 
-        //referencias activas, debe recalcular el total:
-        const total= computed(()=>{
-            let total=0
-            datos.forEach(dato=>{
-                total+=dato.cantidad*dato.precio
-            })
-            return total.toFixed(2) //2 decimales ;)
-        })
-
-        //función para agregar un nuevo concepto a la lista:
-        const agregar=()=>{
-            let nuevo={
-                concepto: concepto.value,
-                cantidad: cantidad.value,
-                precio: precio.value
-            }
-            datos.push(nuevo)
+        //Llenar horas 
+        for (let i=0; i<24; i++){
+            horas.push(i)
         }
-        //función para eliminar un concepto de la lista:
-        const eliminar=(id)=>{
-            if(confirm("¿Seguro que desea eliminar?"))
-                datos.splice(id,1)
+ 
+        //Agregar un nuevo concepto a la lista:
+        const addOne = async () => {
+            let coste = newRegister.precio*newRegister.consumo/1000
+            newRegister.costeHora = coste
+            newRegister.fecha.value,
+            newRegister.consumo.value,
+            newRegister.precio.value,
+            newRegister.hora.value,
+            registers.value.push(newRegister)
+            const res = await axios.post(`/addOne`, newRegister)        
+            console.log(res.data)
+            // if (res.status === 200) {
+            //     success.value = "Su mensaje se ha enviado con éxito";
+            //     sendButton.classList.add('d-none')
+            //     }
+        } 
+
+        const updateOne = async (id) => {
+            registers.value[id].costeHora = (registers.value[id].precio * registers.value[id].consumo) / 1000
+            console.log(id)
+            console.log(registers.value[id])
+            const res = await axios.put(`/updateOne/${registers.value[id]._id}`, registers.value[id])
+            console.log(res.data)
+
+        }
+        //Eliminar un concepto de la lista:
+        const deleteOne = async (id) => {
+            if(confirm("¿Seguro que desea eliminar?")){
+                const itemForDelete = registers.value.splice(id,1)
+                const res = await axios.delete(`/deleteOne/${itemForDelete[0]._id}`)
+                    console.log(res)
+            }
         }
 
         return {
-            datos,
-            agregar, eliminar,
-            total,
-            concepto,cantidad,precio
+            addOne, deleteOne, updateOne,
+            registers, horas, newRegister
         }
     }    
 }
 </script>
 
 <style lang="scss" scoped>
+div{
+    border-radius: .25rem;
+
+}
+input{
+    border-radius: .25rem;
+    border: none;
+     height: 25px;
+}
+td{
+   input{
+    border-radius: .25rem;
+    border: none;
+    height: 25px;
+    //width: 100px;
+
+    }
+    .small{
+        width: 100px;
+    }
+}
+select{
+    width: 100px;
+    height: 25px;
+    border-radius: .25rem;
+    border: none;
+
+}
     .total{
         font-weight:bold;
-        text-align:right;
-        padding-right:20px;
-        background:rgb(18, 129, 92);
+        text-align:left;
+        padding-left:20px;
+        background:rgb(82, 90, 87);
         color:#fff;
     }
     .row.nuevo{
         padding:5px;
-        background:rgb(194, 243, 207);
+        background:rgb(173, 182, 176);
     }
 
     .table{
@@ -104,4 +158,69 @@ export default {
             border: 0px;
         }
     }
+    .small{
+        max-width: 80px;
+    }
+    .medium{
+        max-width: 140px;
+    }
+    .btn-success{
+        background-color:#0cbd6b;
+        border-color: #0cbd6b;
+        font-weight: 500;
+    }
+    .btn-danger{
+        background-color:#eb0f3f;
+        border-color: #eb0f3f;
+        font-weight: 700;
+    }
+
+    @media screen and (max-width: 600px) {
+       tr td:first-child {
+           background: #f0f0f0;
+           font-weight:bold;
+           font-size:1.3em;
+       }
+    }
+    @media only screen 
+    and (max-width: 760px), (min-device-width: 768px) 
+    and (max-device-width: 1024px)  {
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr {
+      margin: 0 0 1rem 0;
+    }
+      
+    tr:nth-child(odd) {
+      background: #ccc;
+    }
+    td {
+        border: 1 solid #000;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+		td:nth-of-type(1):before { content: "Fecha"; }
+		td:nth-of-type(2):before { content: "Hora"; }
+		td:nth-of-type(3):before { content: "Consumo"; }
+		td:nth-of-type(4):before { content: "Precio"; }
+		td:nth-of-type(5):before { content: "Coste"; }
+	}
+
 </style>
