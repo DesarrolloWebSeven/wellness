@@ -35,7 +35,7 @@ A continuación en otra ventana de la consola o terminal dentro del proyecto acc
 ## **Stack Tecnológico**
 Desde este momento ya podrás usar esta app de facturación que tiene los siguientes detalles:
 
--	Importa valores desde un fichero CSV, con columnas y datos ficticios, y almacenarlo en BBDD (NoSQL)
+:red_circle: Importa valores desde un fichero CSV, con columnas y datos ficticios, y almacenarlo en BBDD (NoSQL)
 - Backend NodeJS: encargado de importar los datos y exponerlos en una API que permita hacer operaciones CRUD sobre los datos
 - []Frontend VueJS3: encargado de consumir la API anterior y presentar los datos en una tabla, y realizar las operaciones CRUD desde la misma
 
