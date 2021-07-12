@@ -2,14 +2,7 @@
 
 
 ----------
-<p align=center>
-
-## Wellness TechGroup - Prueba técnica
-</p>
-<center> 
- 
- ## Wellness TechGroup - Prueba técnica 
-</center>
+# Wellness TechGroup - Prueba técnica
 
 Pasos para poner en funcionamiento el proyecto:
 
