@@ -6,15 +6,15 @@
 
 Pasos para poner en funcionamiento el proyecto:
 
- ## **Fronted**
+ ## **Frontend**
 1. Clonar el repositorio: [Haz click aquí](https://github.com/DesarrolloWebSeven/wellness.git)
 2. Una vez dentro del proyecto por medio de la consola use el comando: `npm install`
 3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `npm run serve`
-4. En su navegador asegurese de que la ruta: `http://localhost:8080/` muestra lo siguiente:
+4. En su navegador, asegurese de que la ruta: `http://localhost:8080/` muestra lo siguiente:
 
 <a href="#"><img src="https://i.ibb.co/N3cJ4ZW/pantallazo1.png" alt="pantallazo1" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'></a><br />
 
-## **Backed**
+## **Backend**
 A continnuación en otra ventana de la consola o terminal dentro del proyecto acceda a la carpeta `backend` y siga los siguientes pasos:
 
 1. Una vez dentro del proyecto por medio de la consola use el comando: `npm install`
