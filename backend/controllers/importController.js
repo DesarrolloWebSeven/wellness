@@ -6,7 +6,7 @@ const Factura = require('../models/Factura')
 const addRegisters = async (req,res) => {
     //Almacenamos el archivo en el servidor
     try {
-        if(!req.files || req.files.file.mimetype != 'application/vnd.ms-excel'){
+        if(req.files === undefined || req.files.file.mimetype != 'application/vnd.ms-excel'){
             res.status(400).json({message: 'Debe seleccionar un archivo de extensión .CSV'})
         }else{
             var file = req.files.file
@@ -16,16 +16,12 @@ const addRegisters = async (req,res) => {
                     await parseFile(file)
                     res.send('<h1><a href="http://localhost:8080">Archivo subido exitosamente. Haga click aquí para volver</a></h1>')
                 } 
-
             })
         }
     } catch (err) {
-        res.status(500).json({message:err})
+        res.status(500).json({message: `No ha seleccionado ningun archivo`})
     }
 }
-function redireccionarPagina() {
-    window.location = "https://www.bufa.es";
-  }
 
 //Parsear y guardar el archivo en Base de batos
 const parseFile = (file) => {
