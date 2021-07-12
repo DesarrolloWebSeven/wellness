@@ -2,12 +2,12 @@
 
 
 ----------
-## Wellness TechGroup - Prueba técnica
+<center> ## Wellness TechGroup - Prueba técnica </center>
 
 Pasos para poner en funcionamiento el proyecto:
 
  ## **Frontend**
-1. Clonar el repositorio: [Haz click aquí](https://github.com/DesarrolloWebSeven/wellness.git)
+1. Clonar el repositorio: [Haz click aquí](https://github.com/DesarrolloWebSeven/wellness.git) :floppy_disk:
 2. Una vez dentro del proyecto por medio de la consola use el comando: `npm install`
 3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `npm run serve`
 4. En su navegador, asegúrese de que la ruta: `http://localhost:8080/` muestra lo siguiente:
