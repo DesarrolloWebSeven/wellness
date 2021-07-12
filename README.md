@@ -1,4 +1,3 @@
-# wellness
 ![](https://cdn-images-1.medium.com/fit/t/1600/480/1*4izVrbT8LE14PeLaBg9vjA.png)
 
 
