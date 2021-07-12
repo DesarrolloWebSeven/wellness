@@ -32,6 +32,7 @@ A continuación en otra ventana de la consola o terminal dentro del proyecto acc
 ` Server OK in port 8083` 
 `Conexión a MongoDB Ok!!`
 
+## **Stack Técnologico**
 Apartir de este momento ya podras usar esta app de facturación que tiene los siguientes detalles:
 
 -	Importa valores desde un fichero CSV, con columnas y datos ficticios, y almacenarlo en BBDD (NoSQL)
