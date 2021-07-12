@@ -2,10 +2,10 @@
 
 
 ----------
-<center>
+<p align=center>
 
 ## Wellness TechGroup - Prueba técnica
-</center>
+</p>
 <center> 
  
  ## Wellness TechGroup - Prueba técnica 
