@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="https://cdn-images-1.medium.com/fit/t/1600/480/1*4izVrbT8LE14PeLaBg9vjA.png">
+    <img alt="Imagen rpresetativa" src="https://cdn-images-1.medium.com/fit/t/1600/480/1*4izVrbT8LE14PeLaBg9vjA.png">
     <FormImport msg="Agrege un archivo CSV que quiera importar a mongoDB"/>
   </div>
 </template>

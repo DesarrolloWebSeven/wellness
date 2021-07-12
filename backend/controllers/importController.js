@@ -11,14 +11,21 @@ const addRegisters = async (req,res) => {
         }else{
             var file = req.files.file
             await file.mv(path.join(__dirname, '../data/', file.name), async (err) => {
-                err ? res.send(err) : await parseFile(file)
-                res.status(200).json({message:'Archivo importado con exito!'})
+                if (err) res.send(err) 
+                else{
+                    await parseFile(file)
+                    res.send('<h1><a href="http://localhost:8080">Archivo subido exitosamente. Haga click aquí para volver</a></h1>')
+                } 
+
             })
         }
     } catch (err) {
         res.status(500).json({message:err})
     }
 }
+function redireccionarPagina() {
+    window.location = "https://www.bufa.es";
+  }
 
 //Parsear y guardar el archivo en Base de batos
 const parseFile = (file) => {

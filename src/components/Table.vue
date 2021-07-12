@@ -7,16 +7,16 @@
                 <div class="col-3 btn">Consumo</div>
                 <div class="col-3 btn">Precio</div>
             </div>
-            <div class="col-3 btn"><input type="date" v-model="newRegister.fecha" placeholder="Fecha"/></div>
+            <div class="col-3 btn"><input type="date" v-model="newRegister.fecha" placeholder="Fecha" required/></div>
             <div class="col-3 btn">
-                <select v-model="newRegister.hora" class="small" placeholder="0-23 hr">
+                <select v-model="newRegister.hora" class="small" placeholder="0-23 hr" required>
                     <option v-for="(hora, i) in horas" :key="i" :value="hora" class="small">
                         {{ hora }}
                     </option>
                 </select>
             </div>
-            <div class="col-3 btn"><input type="number" class="small" maxlength="4" v-model="newRegister.consumo" placeholder="0-9999"/></div>        
-            <div class="col-3 btn"><input type="number" class="medium" v-model="newRegister.precio" step="0.091866654" placeholder="0.457874"/></div><br><br>      
+            <div class="col-3 btn"><input type="number" class="small" maxlength="4" v-model="newRegister.consumo" placeholder="0-9999" required/></div>        
+            <div class="col-3 btn"><input type="number" class="medium" v-model="newRegister.precio" step="0.091866654" placeholder="0.457874" required/></div><br><br>      
             <div class="d-grid gap-2"><button @click="addOne" class="btn btn-success btn-lg">Agregar registro</button></div>
         </div>
         <br>
@@ -38,11 +38,11 @@
                 </thead>
                 <tbody>
                     <tr v-for="(dato,i) in registers" :key="i" @change="updateOne(i)">
-                        <td class=""><input class="btn" size="10" type="text" v-model="dato.fecha"></td> 
-                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.hora"></td>
-                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.consumo"></td>
-                        <td class="medium"><input class="btn medium" size="10" step="0.091866654" type="number" v-model="dato.precio"></td>
-                        <td class="large"><input size="10" type="number" v-model="dato.costeHora"></td>
+                        <td><input class="btn" size="10" type="text" v-model="dato.fecha" required></td>
+                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.hora" required></td>
+                        <td class="small"><input class="btn small" size="5" type="number" v-model="dato.consumo" required></td>
+                        <td class="medium"><input class="btn medium" size="10" step="0.091866654" type="number" v-model="dato.precio" required></td>
+                        <td> {{ dato.costeHora }} </td>
                         <td class="small">
                             <button class="btn btn-danger btn-sm" @click="deleteOne(i)">X</button>
                         </td>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { reactive, computed, watch, inject } from 'vue'
+import { reactive, inject } from 'vue'
 import axios from 'axios'
 export default {
     name:'Table',
@@ -64,42 +64,53 @@ export default {
         const horas = reactive([])
         const newRegister = reactive({})
 
-        //Llenar horas 
+        //Horas posibles 
         for (let i=0; i<24; i++){
             horas.push(i)
         }
  
-        //Agregar un nuevo concepto a la lista:
+        //Agregar un nuevo concepto a la lista
         const addOne = async () => {
-            let coste = newRegister.precio*newRegister.consumo/1000
-            newRegister.costeHora = coste
-            newRegister.fecha.value,
-            newRegister.consumo.value,
-            newRegister.precio.value,
-            newRegister.hora.value,
-            registers.value.push(newRegister)
-            const res = await axios.post(`/addOne`, newRegister)        
-            console.log(res.data)
-            // if (res.status === 200) {
-            //     success.value = "Su mensaje se ha enviado con éxito";
-            //     sendButton.classList.add('d-none')
-            //     }
+            try {
+                let coste = newRegister.precio*newRegister.consumo/1000
+                newRegister.costeHora = coste
+                newRegister.fecha.value,
+                newRegister.consumo.value,
+                newRegister.precio.value,
+                newRegister.hora.value,
+                registers.value.push(newRegister)
+                const res = await axios.post(`/addOne`, newRegister)        
+                    if (res.status === 200) alert(res.data.message)
+                    if (res.status === 500) alert(res.data.message)
+            } catch (error) {
+                alert(`Ha ocurrido un error: ${error}. Todos los campos son obligatorios`)
+            }
         } 
 
+        //Actualizar un concepto de la lista
         const updateOne = async (id) => {
-            registers.value[id].costeHora = (registers.value[id].precio * registers.value[id].consumo) / 1000
-            console.log(id)
-            console.log(registers.value[id])
-            const res = await axios.put(`/updateOne/${registers.value[id]._id}`, registers.value[id])
-            console.log(res.data)
+            try {
+                registers.value[id].costeHora = (registers.value[id].precio * registers.value[id].consumo) / 1000
+                const res = await axios.put(`/updateOne/${registers.value[id]._id}`, registers.value[id])
+                    if (res.status === 200) alert(res.data.message)
+                    if (res.status === 500) alert(res.data.message)
+            } catch (error) {
+                alert(`Ha ocurrido un error: ${error}. Todos los campos son obligatorios`)
+            }
 
         }
         //Eliminar un concepto de la lista:
         const deleteOne = async (id) => {
-            if(confirm("¿Seguro que desea eliminar?")){
-                const itemForDelete = registers.value.splice(id,1)
-                const res = await axios.delete(`/deleteOne/${itemForDelete[0]._id}`)
-                    console.log(res)
+            try {
+                if(confirm("¿Seguro que desea eliminar?")){
+                    const itemForDelete = registers.value.splice(id,1)
+                    const res = await axios.delete(`/deleteOne/${itemForDelete[0]._id}`)
+                    if (res.status === 200) alert(res.data.message)
+                    if (res.status === 500) alert(res.data.message)
+                }
+            } 
+            catch (error) {
+                alert(`Ha ocurrido un error: ${error}.`)     
             }
         }
 

@@ -3,7 +3,7 @@
     <h3>{{ msg }}</h3>
     <form action="http://localhost:8083/" method="POST" encType="multipart/form-data">
         <input class="btn btn-outline-secondary" type="file" name="file" accept="*.csv" />
-        <input class="btn btn-outline-primary" type="submit" value="Upload" />
+        <input class="btn btn-outline-primary" type="submit" value="Subir archivo" />
     </form> 
   </div>
 </template>
