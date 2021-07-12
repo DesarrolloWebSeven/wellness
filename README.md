@@ -2,6 +2,10 @@
 
 
 ----------
+<center>
+
+## Wellness TechGroup - Prueba técnica
+</center>
 <center> 
  
  ## Wellness TechGroup - Prueba técnica 
