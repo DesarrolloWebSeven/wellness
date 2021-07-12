@@ -1,6 +1,8 @@
 ![](https://cdn-images-1.medium.com/fit/t/1600/480/1*4izVrbT8LE14PeLaBg9vjA.png)
 
-
+<p style="text-align: center;">
+ ## Wellness TechGroup - Prueba técnica
+</p>
 ----------
 <center> 
  ## Wellness TechGroup - Prueba técnica 
