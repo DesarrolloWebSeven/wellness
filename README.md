@@ -19,13 +19,13 @@ A continuación en otra ventana de la consola o terminal dentro del proyecto acc
 
 1. Una vez dentro del proyecto por medio de la consola use el comando: `npm install`
 2. Mientras se instalan las dependencias deberias configurar la conexión a la base de datos, para ello debes crear un archivo dentro del mismo directorio backend con el nombre: `.env` dentro de este archivo crea lo siguiente:
-==
+===========================================
 `PORT_SERVER = 8083` <br>
 `DB_HOST = "Tu Host de atlas"`<br>
-`DB_USER = "Tu usuario"<br>
-DB_PASS = "Tu constraseña"<br>
-DB_NAME = "El nombre de tu base de datos`<br>
-==
+`DB_USER = "Tu usuario"`<br>
+`DB_PASS = "Tu constraseña"`<br>
+`DB_NAME = "El nombre de tu base de datos`<br>
+=============================================
 **nota:** los valores van a cambiar dependiendo de tu cluster en Mongo Atlas. Si necesitas ayuda con esta parte mira [Aqui la documentación](https://docs.atlas.mongodb.com/driver-connection/)
 
 3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `node app` la consola respondera con: 
@@ -34,7 +34,7 @@ DB_NAME = "El nombre de tu base de datos`<br>
 
 Apartir de este momento ya podras usar esta app de facturación que tiene los siguientes detalles:
 
-- [] 	Importa valores desde un fichero CSV, con columnas y datos ficticios, y almacenarlo en BBDD (NoSQL)
+-	Importa valores desde un fichero CSV, con columnas y datos ficticios, y almacenarlo en BBDD (NoSQL)
 - [] 	Backend NodeJS: encargado de importar los datos y exponerlos en una API que permita hacer operaciones CRUD sobre los datos
 - []	 Frontend VueJS3: encargado de consumir la API anterior y presentar los datos en una tabla, y realizar las operaciones CRUD desde la misma
 
