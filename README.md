@@ -26,7 +26,7 @@ DB_USER = "Tu usuario"
 DB_PASS = "Tu constraseña"
 DB_NAME = "El nombre de tu base de datos`
 
-**nota:** los valores van a cambiar dependiendo de tu cluster en Mongo Atlas. Si necesitas ayuda con esta parte mira [Aqui la documentacon](https://docs.atlas.mongodb.com/driver-connection/)
+**nota:** los valores van a cambiar dependiendo de tu cluster en Mongo Atlas. Si necesitas ayuda con esta parte mira [Aqui la documentación](https://docs.atlas.mongodb.com/driver-connection/)
 
 3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `node app` la consola respondera con: 
 ` Server OK in port 8083` 
