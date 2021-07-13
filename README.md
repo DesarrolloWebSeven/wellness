@@ -34,7 +34,7 @@ A continuación en otra ventana de la consola o terminal dentro del proyecto acc
 
 ## **Tests Back - (Jest/supertest)**
 Para correr los test creados ejecute el siguiente comando:
-``**npm run test**``
+`` **npm run test** ``
 
 ## **Stack Tecnológico**
 Desde este momento ya podrás usar esta app de facturación que tiene los siguientes detalles:
