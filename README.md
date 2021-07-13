@@ -28,9 +28,13 @@ A continuación en otra ventana de la consola o terminal dentro del proyecto acc
 =============================================<br>
 **nota:** los valores van a cambiar dependiendo de tu cluster en Mongo Atlas. Si necesitas ayuda con esta parte mira [aquí la documentación](https://docs.atlas.mongodb.com/driver-connection/)
 
-3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `node app` la consola responderá con: 
+3. Una vez termine de descargar las dependencias requeridas, inicie el proyecto con el comando: `npm start` la consola responderá con: 
 ` Server OK in port 8083` 
 `Conexión a MongoDB Ok!!`
+
+## **Tests Back - (Jest/supertest)**
+Para correr los test creados ejecute el siguiente comando:
+``**npm run test**``
 
 ## **Stack Tecnológico**
 Desde este momento ya podrás usar esta app de facturación que tiene los siguientes detalles:
