@@ -22,6 +22,7 @@ export default {
 			provide('registers', registers)
 			const showOrders = async () => {
 				const res = await axios.get(`public/listAll`)
+				console.log(res)
 				res.data.forEach(element => {
 					registers.value.push(element)
 				});

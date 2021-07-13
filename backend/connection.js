@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-let uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+const { DB_NAME, DB_NAME_TEST, NODE_ENV} = process.env
+const connectionDB = NODE_ENV == 'test' ? DB_NAME_TEST : DB_NAME
+let uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${connectionDB}`
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

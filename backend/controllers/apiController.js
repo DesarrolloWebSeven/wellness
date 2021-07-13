@@ -4,13 +4,13 @@ const addRegister = (req, res) => {
     let newRegister = new Factura(req.body)
     newRegister.save()
         .then(() => res.status(200).json({message: 'Agregado con exito!'}))
-        .catch((err) => res.status(500).json({message: `Algo salio mal: ${err}`}))
+        .catch((err) => res.status(400).json({message: `Algo salio mal: ${err}`}))
 }
 
 const deleteRegister = (req, res) => {
     Factura.findByIdAndDelete(req.params.id)
         .then(() => res.status(200).json({ message: 'Borrado con exito!' }))
-        .catch(err => res.status(500).json({ message: `Algo salio mal: ${err}` }))
+        .catch(err => res.status(400).json({ message: `Algo salio mal: ${err}` }))
 }   
 
 const updateRegister = (req, res) => {
@@ -23,13 +23,13 @@ const updateRegister = (req, res) => {
         costeHora: coste
     })
         .then(() => res.status(200).json({ message: 'Actualizado con exito!' }))
-        .catch(err => res.status(500).json({ message: `Algo salio mal: ${err}` }))
+        .catch(err => res.status(400).json({ message: `Algo salio mal: ${err}` }))
 }
 
 const listRegisters = (req, res) => {
         Factura.find().lean()
-            .then(data => res.json(data))
-            .catch(err => res.json(err))
+            .then(data => res.status(200).json(data))
+            .catch(err => res.status(400).json(err))
 }
 
 module.exports={
